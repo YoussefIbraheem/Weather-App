@@ -1,6 +1,6 @@
 import './style.css'
-import * as weather from './weather' 
-import { ICON_MAP } from './iconMap'
+import * as weather from './weather.js' 
+import { ICON_MAP } from './iconMap.js'
 
 
 
