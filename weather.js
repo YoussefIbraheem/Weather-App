@@ -1,14 +1,11 @@
-//
 
-import axios from "axios";
-export function getWeather(lon,lat,timezone) {
-   return axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,apparent_temperature,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum&current_weather=true&timeformat=unixtime&timezone=${timezone}`)
-.then(({data})=>{
-     return { current: ParseWeather.parseCurrentWeather(data),
-              daily: ParseWeather.parseDailyWeather(data),
-              hourly : ParseWeather.parseHourlyWeather(data)
-            }
-})
+export async function getWeather(lon,lat,timezone) {
+    let weatherAPI = await fetch (`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,apparent_temperature,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum&current_weather=true&timeformat=unixtime&timezone=${timezone}`)
+    let response = await weatherAPI.json();
+     return { current: ParseWeather.parseCurrentWeather(response),
+               daily: ParseWeather.parseDailyWeather(response),
+               hourly : ParseWeather.parseHourlyWeather(response)
+             }
 }
 
  class ParseWeather{
